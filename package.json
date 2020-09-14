@@ -1,4 +1,37 @@
 {
-  "name": "md-links",
-  "version": "0.1.0"
+  "name": "alefy-md-links",
+  "version": "0.1.0",
+  "main": "temp.js",
+  "description": "npm module to identify broken links in md files",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alefyyyy/bog001-md-links.git"
+  },
+  "keywords": [
+    "nodejs",
+    "markdown",
+    "javascript",
+    "jest"
+  ],
+  "author": "Alejandra Pérez Mondragón",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Alefyyyy/bog001-md-links/issues"
+  },
+  "homepage": "https://github.com/Alefyyyy/bog001-md-links#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "linkify-it": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  }
 }
