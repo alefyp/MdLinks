@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const linkify = require('linkify-it')();
+const axios = require('axios');
 
-const filePathFromComputer = './exampleeee.md';
+const filePathFromComputer = './forwardlink.md';
 
 const mdlinks = (filePath) => {
 
@@ -28,25 +29,28 @@ const mdlinks = (filePath) => {
     });
   });
 
-  //Encontrar los links y el schema
+  //Encontrar los links
   const findLinks = new Promise ((resolve, reject) => {
 
     readFilePromise.then((res) => {
-      const fileContent = linkify.match(res);
+
+      const fileLinks = linkify.match(res);
       const urlArray = [];
-      if(fileContent !== null){
-        fileContent.forEach((link)  => {
-          
-          urlArray.push(link.url);
+
+      if(fileLinks !== null){
+        fileLinks.forEach((link)  => {
+        urlArray.push(link.url);            
         });
+
         resolve(urlArray);
-      }
+        
+      } //Cierra if
 
       else{
         reject('No links detected');
       }
 
-    }).catch(e => console.log(e));
+    }).catch(e => console.log(e)); //aqui termina linkify con catch
 
   });
 
