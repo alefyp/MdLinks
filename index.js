@@ -1,7 +1,13 @@
 
+module.exports = mdlinks = () => {
 
 
-module.exports = () => {
 
 
+
+
+
+
+  
+  return 'Aquí va mdLinks!';
 };
