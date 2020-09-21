@@ -83,8 +83,8 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
       const linkInfoPromises = []; //links promises
 
       if(!(Array.isArray(findLinks(data)) && findLinks(data).length)){
-        const newObj = {filePath, check: "No links detected in this file"};
-        linkInfoPromises.newObj;
+        const newObj = {filePath, check: "No links detected in this file"}; //documentarlo
+        linkInfoPromises.push(newObj);
         //return newObj;
       } else{
         findLinks(data).forEach((link)=>{
@@ -142,13 +142,6 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{
       
       const mdLinksDirectory = pathIsDirectory(filename);
       console.log("Va a ser un array de archivos:", mdLinksDirectory)
-
-    //as a new promise
-    // if(!(Array.isArray(mdLinksDirectory) && mdLinksDirectory.length)){ //Pregguntar
-      //   const newObj = {filePath, check: "No .md files in this folder"};
-      //   resolve(newObj);
-      // } //si queda vacío entonces no debería decir que ese archivo no tiene md files en el interior?
-      
 
       const mdLinksDirectoryPromises = mdLinksDirectory.map((mdfilepath) =>{      
         return mdLinksDefault(mdfilepath, option)
