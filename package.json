@@ -2,7 +2,7 @@
   "name": "alefy-md-links",
   "version": "0.1.0",
   "main": "temp.js",
-  "description": "npm module to identify broken links in md files",
+  "description": "npm module to identify broken/working links in markdown files",
   "directories": {
     "test": "test"
   },
@@ -21,6 +21,9 @@
   ],
   "author": "Alejandra Pérez Mondragón",
   "license": "MIT",
+  "bin":{
+    "md-links": "./cli,js"
+  },
   "bugs": {
     "url": "https://github.com/Alefyyyy/bog001-md-links/issues"
   },

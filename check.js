@@ -1,19 +1,35 @@
 const mdLinks = require('./index.js');
 
-mdLinks("./some/example.md")
+
+const filepathmd = '../FolderDemo/disney.md';
+const dirpath = '../FolderDemo'
+const notvalidfile = '../Md links.png'
+
+
+mdLinks(filepathmd)
   .then(links => {
-    // => [{ href, text, file }]
+    console.log(links);
+    //=> [{ href, text, file}]
   })
   .catch(console.error);
 
-mdLinks("./some/example.md", { validate: true })
+mdLinks(notvalidfile)
+.then(links => {
+  console.log(links);
+  //=> [{ href, text, file}]
+})
+.catch(console.error);
+  
+mdLinks(filepathmd, { validate: true })
   .then(links => {
+    console.log(links);
     // => [{ href, text, file, status, ok }]
   })
   .catch(console.error);
 
-mdLinks("./some/dir")
+mdLinks(dirpath)
   .then(links => {
+    console.log(links);
     // => [{ href, text, file }]
   })
   .catch(console.error);
