@@ -6,30 +6,37 @@ const dirpath = '../FolderDemo'
 const notvalidfile = '../Md links.png'
 
 
-mdLinks(filepathmd)
-  .then(links => {
-    console.log(links);
-    //=> [{ href, text, file}]
-  })
-  .catch(console.error);
+// mdLinks(filepathmd)
+//   .then(links => {
+//     console.log(links);
+//     //=> [{ href, text, file}]
+//   })
+//   .catch(console.error);
 
-mdLinks(notvalidfile)
-.then(links => {
-  console.log(links);
-  //=> [{ href, text, file}]
-})
-.catch(console.error);
+// mdLinks(notvalidfile)
+// .then(links => {
+//   console.log(links);
+//   //=> [{ href, text, file}]
+// })
+// .catch(console.error);
   
-mdLinks(filepathmd, { validate: true })
-  .then(links => {
-    console.log(links);
-    // => [{ href, text, file, status, ok }]
-  })
-  .catch(console.error);
+// mdLinks(filepathmd, { validate: true })
+//   .then(links => {
+//     console.log(links);
+//     // => [{ href, text, file, status, ok }]
+//   })
+//   .catch(console.error);
 
-mdLinks(dirpath)
+mdLinks(dirpath, {validate: true})
   .then(links => {
     console.log(links);
     // => [{ href, text, file }]
   })
   .catch(console.error);
+
+  // mdLinks(dirpath, {validate: false})
+  // .then(links => {
+  //   console.log(links);
+  //   // => [{ href, text, file }]
+  // })
+  // .catch(console.error);
