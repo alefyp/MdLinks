@@ -2,13 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const linkify = require('linkify-it')();
 const axios = require('axios');
-const { SSL_OP_MSIE_SSLV2_RSA_PADDING } = require('constants');
-
-
 
 const arrFilepaths = [];
-
-
 
 const readFile = (filePath) => {
   const promise = new Promise ((resolve, reject) => {
@@ -24,6 +19,8 @@ const readFile = (filePath) => {
   return promise;
 };
 
+
+//entra un archivo en texto platno utf-8
 const findLinks = (file) => {
     const fileContent = linkify.match(file); 
     const urlArray = [];
@@ -33,22 +30,6 @@ const findLinks = (file) => {
       }); 
     }
     return(urlArray);
-}
-
-// Para encontrar los links únicos (sync)
-const stats = (urlsArray) => {
-    var i,
-    len = urlsArray.length,
-    out = [],
-    obj = {};
-
-  for (i = 0; i < len; i++) {
-  obj[urlsArray[i]] = 0;
-  }
-  for (i in obj) {
-  out.push(i);
-  }
-  return out; // out.lenght
 }
 
 //Para leer los .md dentro de directorios
@@ -68,7 +49,6 @@ const pathIsDirectory = (dirname) =>{
   //Me falta el caso en que no tenga md files
   return arrFilepaths;
 }
-
 
 const mdLinksDefault = (filePath, option = { validate: false } ) => {
 
@@ -101,9 +81,9 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
   });
 }
 
-const getAxiosPromise = (line, idx, link, filePath, option) =>{
+const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación objeto
 
-    const text = line.split('[').pop().split(']')[0];
+    const text = line.split('[').pop().split(']')[0]; //text
     const newObj = {link, line: idx+1, text, file: filePath } //Más uno porque la linea empeiza en cero por el array
 
     if(!option.validate){
@@ -130,30 +110,55 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{
             });
 }
 
+
+
+
   module.exports = mdlinks = (filename, option = {validate: false}) => {
 
-    //fs access ==> else de no valid file
-    filename = path.resolve(filename);
-   
-    if(fs.lstatSync(filename).isFile()){
-      return mdLinksDefault(filename, option);
-    }
-    else if(fs.lstatSync(filename).isDirectory() ){
-      
-      const mdLinksDirectory = pathIsDirectory(filename);
-      console.log("Va a ser un array de archivos:", mdLinksDirectory)
+  filename = path.resolve(filename);
 
-      const mdLinksDirectoryPromises = mdLinksDirectory.map((mdfilepath) =>{      
-        return mdLinksDefault(mdfilepath, option)
-      });
-      const newPromises = mdLinksDirectoryPromises.flat();
+  fs.open(filename, 'r', (err, fd) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        console.error('File does not exist');
+      }
+      throw err;
+    } 
+  }); //acá necesito resolver este callback sin romperlo todo again XD
+  //PENDIENTE RESOLVER NO OLVIDAR NO SE PUEDE IR CON EL ENOENT ERR ALEJANDRA DO IT
+  //YOU CAN DO IT
 
-      //console.log("Array de promesas: ", mdLinksDirectoryPromises);
-      
-      return Promise.all(newPromises).then((e) => Promise.all(e.flat()));
+      if(fs.lstatSync(filename).isFile()){
+        //console.log("Archivo solo", mdLinksDefault(filename, option))
+        return mdLinksDefault(filename, option).then((e) => Promise.all(e));
+      }
+      else if(fs.lstatSync(filename).isDirectory() ){
         
+        const mdLinksDirectory = pathIsDirectory(filename);
 
+        const mdLinksDirectoryPromises = mdLinksDirectory.map((mdfilepath) =>{      
+          return mdLinksDefault(mdfilepath, option)
+        });
+        const newPromises = mdLinksDirectoryPromises.flat();
+        
+        return Promise.all(newPromises).then((e) => Promise.all(e.flat()));
+      }
+  }
+
+
+  const stats = (urlsArray) => {
+    var i,
+    len = urlsArray.length,
+    out = [],
+    obj = {};
+  
+    for (i = 0; i < len; i++) {
+      obj[urlsArray[i]] = 0;
     }
+    for (i in obj) {
+      out.push(i);
+    }
+  return out; // out.lenght 
   }
 
 
