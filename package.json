@@ -1,4 +1,42 @@
 {
   "name": "md-links",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "main": "./bin/cli.js",
+  "description": "npm module to identify broken/working links in markdown files",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alefyyyy/bog001-md-links.git"
+  },
+  "keywords": [
+    "nodejs",
+    "markdown",
+    "javascript",
+    "jest"
+  ],
+  "author": "Alejandra Pérez Mondragón",
+  "license": "MIT",
+  "bin": {
+    "md-links": "./bin/cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/Alefyyyy/bog001-md-links/issues"
+  },
+  "homepage": "https://github.com/Alefyyyy/bog001-md-links#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "chalk": "^2.4.2",
+    "linkify-it": "^3.0.2",
+    "yargs": "^13.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  }
 }
