@@ -1,5 +1,5 @@
 {
-  "name": "alefy-md-links",
+  "name": "md-links",
   "version": "0.1.0",
   "main": "./bin/cli.js",
   "description": "npm module to identify broken/working links in markdown files",
@@ -22,7 +22,7 @@
   "author": "Alejandra Pérez Mondragón",
   "license": "MIT",
   "bin": {
-    "hello": "./bin/cli.js"
+    "md-links": "./bin/cli.js"
   },
   "bugs": {
     "url": "https://github.com/Alefyyyy/bog001-md-links/issues"
@@ -30,7 +30,6 @@
   "homepage": "https://github.com/Alefyyyy/bog001-md-links#readme",
   "dependencies": {
     "axios": "^0.20.0",
-    "boxen": "^4.0.0",
     "chalk": "^2.4.2",
     "linkify-it": "^3.0.2",
     "yargs": "^13.2.4"

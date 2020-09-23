@@ -1,16 +1,16 @@
-const mdLinks = require('./index.js');
+const mdLinks = require('md-links');
 
 
-const filepathmd = '../FolderDemo/disney.md';
-const dirpath = '../FolderDemo'
-const notvalidfile = '../Md links.png'
+const filepathmd = '../../FolderDemo/disney.md';
+const dirpath = '../../FolderDemo'
+const notvalidfile = '../../Md links.png'
 
 mdLinks(notvalidfile)
 .then(links => {
   console.log(links);
   //=> [{ href, text, file}]
 })
-.catch(console.error);
+.catch(console.error); //err
 
 mdLinks(filepathmd)
   .then(links => {

@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const linkify = require('linkify-it')();
 const axios = require('axios');
+const { resolve } = require('url');
 
 const arrFilepaths = [];
 
@@ -115,52 +116,41 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
 
   module.exports = mdlinks = (filename, option = {validate: false}) => {
 
-  filename = path.resolve(filename);
+    
 
-  fs.open(filename, 'r', (err, fd) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        console.error('File does not exist');
-      }
-      throw err;
-    } 
-  }); //acá necesito resolver este callback sin romperlo todo again XD
-  //PENDIENTE RESOLVER NO OLVIDAR NO SE PUEDE IR CON EL ENOENT ERR ALEJANDRA DO IT
-  //YOU CAN DO IT
 
-      if(fs.lstatSync(filename).isFile()){
-        //console.log("Archivo solo", mdLinksDefault(filename, option))
-        return mdLinksDefault(filename, option).then((e) => Promise.all(e));
-      }
-      else if(fs.lstatSync(filename).isDirectory() ){
-        
-        const mdLinksDirectory = pathIsDirectory(filename);
+    const promiseLaUltimaLoJuro = new Promise((resolve, reject) => {
+      
 
-        const mdLinksDirectoryPromises = mdLinksDirectory.map((mdfilepath) =>{      
-          return mdLinksDefault(mdfilepath, option)
-        });
-        const newPromises = mdLinksDirectoryPromises.flat();
-        
-        return Promise.all(newPromises).then((e) => Promise.all(e.flat()));
-      }
+      filename = path.resolve(filename);
+      
+      
+      fs.open(filename, 'r', (err, fd) => {
+        if (err) {
+          if (err.code === 'ENOENT') {
+            console.error('File does not exist');
+          }
+          reject(new Error(err.message))
+        }else{
+          if(fs.lstatSync(filename).isFile()){
+            //console.log("Archivo solo", mdLinksDefault(filename, option))
+            resolve(mdLinksDefault(filename, option).then((e) => Promise.all(e)));
+          }
+          else if(fs.lstatSync(filename).isDirectory() ){
+            
+            const mdLinksDirectory = pathIsDirectory(filename);
+    
+            const mdLinksDirectoryPromises = mdLinksDirectory.map((mdfilepath) =>{      
+              return mdLinksDefault(mdfilepath, option)
+            });
+            const newPromises = mdLinksDirectoryPromises.flat();
+            
+            resolve(Promise.all(newPromises).then((e) => Promise.all(e.flat())));
+          }
+    
+        }
+      });
+    })   
+    
+    return promiseLaUltimaLoJuro;
   }
-
-
-  const stats = (urlsArray) => {
-    var i,
-    len = urlsArray.length,
-    out = [],
-    obj = {};
-  
-    for (i = 0; i < len; i++) {
-      obj[urlsArray[i]] = 0;
-    }
-    for (i in obj) {
-      out.push(i);
-    }
-  return out; // out.lenght 
-  }
-
-
-
-
