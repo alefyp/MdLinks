@@ -1,15 +1,16 @@
-## Markdown Links
+# Markdown Links
 
-Link recognition module to identify broken/working links in markdown files. By default understands: http(s)://... , ftp://..., mailto:... & //... links « "fuzzy" links and emails (google.com, foo@bar.com).
-
+> Link recognition module to identify broken/working links in markdown files. 
+> By default understands: http(s)://... , ftp://..., mailto:... & //... links « "fuzzy" links and emails (google.com, foo@bar.com).
 
 ## Index
 
 * [Install](##Install)
 * [Usage](##Usage)
+  * [Javascript API](###JavascriptAPI)
+  * [CLI](###CLI)
+    * []()
 
-
-***
 
 ## Install
 ```console
@@ -18,7 +19,7 @@ $ npm install @alefyyyy/md-links
 
 ## Usage
 
-### Javascript API
+### JavascriptAPI
 
 ```js
 const mdLinks = require('@Alefyyyy/md-links)
@@ -73,7 +74,7 @@ md-links <path> [options]
 
 #### Default 
 
-md-links *path* --validate
+md-links *path* 
 
 log with:
 file | line | text |
@@ -82,13 +83,16 @@ file | line | text |
 * text: text reference as (example)[link] will return text, if the link is not reference in that way, it will returns the entire line content as text description
 
 ```console
+$ md-links alefy.md
 alefy.md 1 http://google.com google.com
 alefy.md 2 http://www.alefy.com www.alefy.com
 alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk
-
-### Validate
-
 ```
+
+#### Validate
+
+md-links *path* --validate
+
 log with:
 file | line | text | check | status | 
 * check: 'ok' for working links and 'broken' for... yes, broken links.
@@ -99,14 +103,17 @@ $ md-links alefy.md --validate
  alefy.md http://google.com google.com ok 200
  alefy.md http://www.alefy.com www.alefy.com broken undefined
  alefy.md https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk ok 200
+ ```
 
- ### Validate
+ #### Stats
 
-```
+ md-links *path* --stats
+
 log with:
 total | unique | 
 * link: total links found
 * unique: unique links found 
+
 
 ```console
 $ md-links alefy.md --stats
@@ -114,7 +121,7 @@ total: 3
 unique: 3
 ```
 
-### Validate ft. stats
+#### Validate ft. stats
 
 log with:
 total | unique | broken | 
@@ -128,7 +135,7 @@ total: 3
 unique: 3
 broken: 1
 ```
-### Directories?
+#### Directories?
 
 both flag options work with directories as well:
 
