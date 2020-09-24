@@ -1,8 +1,9 @@
-### Markdown Links
+## Markdown Links
+#### By Alefy
 
 [![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents) [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk) 
 
-## Índice
+## Index
 
 * [Install](##Install)
 * [Usage](##Usage)
@@ -23,8 +24,8 @@ $ npm install @alefyyyy/md-links
 
 ## Usage
 
-```console
-$ const mdLinks = require("md-links");
+```js
+const mdLinks = require("md-links");
 ```
 
 
