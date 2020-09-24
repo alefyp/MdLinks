@@ -82,7 +82,7 @@ return out.length; // out.lenght
 console.log(options.stats)
 console.log(userEnt[0])
 
-if( options.stats === undefined){ //Yo aquí había puesto dos condiciones :((((((((()))))))))
+if( options.stats === undefined){
 
   mdLinks(userEnt[0], { validate: options.validate }).then((e) => {
     e.forEach(element => {
