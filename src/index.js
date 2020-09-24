@@ -116,19 +116,14 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
 
   module.exports = mdlinks = (filename, option = {validate: false}) => {
 
-    
-
-
     const promiseLaUltimaLoJuro = new Promise((resolve, reject) => {
-      
-
       filename = path.resolve(filename);
       
       
       fs.open(filename, 'r', (err, fd) => {
         if (err) {
           if (err.code === 'ENOENT') {
-            console.error('File does not exist');
+            //console.error('File does not exist');
           }
           reject(new Error(err.message))
         }else{
