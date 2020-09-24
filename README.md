@@ -73,17 +73,6 @@ md-links <path> [options]
 
 #### Default 
 
-Just try md-links *path*
-
-```console
-$ md-links alefy.md
-alefy.md 1 http://google.com google.com
-alefy.md 2 http://www.alefy.com www.alefy.com
-alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk
-```
-
-### Validate
-
 md-links *path* --validate
 
 log with:
@@ -96,6 +85,9 @@ file | line | text |
 alefy.md 1 http://google.com google.com
 alefy.md 2 http://www.alefy.com www.alefy.com
 alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk
+
+### Validate
+
 ```
 log with:
 file | line | text | check | status | 
@@ -107,6 +99,9 @@ $ md-links alefy.md --validate
  alefy.md http://google.com google.com ok 200
  alefy.md http://www.alefy.com www.alefy.com broken undefined
  alefy.md https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk ok 200
+
+ ### Validate
+
 ```
 log with:
 total | unique | 
@@ -118,6 +113,9 @@ $ md-links alefy.md --stats
 total: 3
 unique: 3
 ```
+
+### Validate ft. stats
+
 log with:
 total | unique | broken | 
 * link: total links found
@@ -130,6 +128,7 @@ total: 3
 unique: 3
 broken: 1
 ```
+### Directories?
 
 both flag options work with directories as well:
 
