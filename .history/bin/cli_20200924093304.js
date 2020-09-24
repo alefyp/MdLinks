@@ -5,9 +5,8 @@ const mdLinks = require('../src/index');
 const path = require('path'); //lo uso para mostrar el archivo solito y que se vea más bonito
 
 
-
 const yargs = require("yargs");
-
+const { link } = require("fs");
 
 const userEnt = argv._;
 
@@ -80,7 +79,8 @@ return out.length; // out.lenght
 
 }
 
-
+console.log(options.stats)
+console.log(userEnt[0])
 
 if( options.stats === undefined){ //Yo aquí había puesto dos condiciones :((((((((()))))))))
 
@@ -88,21 +88,20 @@ if( options.stats === undefined){ //Yo aquí había puesto dos condiciones :((((
     e.forEach(element => {
       if(element.text === undefined){
         const folderP = path.basename(element.filePath);
-        const noLinksMessage = chalk.red(element.check);
+        const noLinksMessage = chalk.red('This file does not contain any links');
         console.log(` ${folderP} ${noLinksMessage}`);
       }
       else{
         const folderP = path.basename(element.file);
         const trunkText = chalk.gray(element.text.substr(0, 49));
         const linkText = chalk.blue(element.link);
-        const lineNum = chalk.gray(element.line);
         
         let checkText = "owo";
         if(options.validate){     
           element.check == 'broken' ? checkText = chalk.red(element.check) : checkText = chalk.green(element.check);
           console.log(` ${folderP} ${linkText} ${trunkText} ${checkText} ${element.status}`); 
         }else{
-          console.log(` ${folderP} ${lineNum} ${linkText} ${trunkText}`); 
+          console.log(` ${folderP} ${linkText} ${trunkText}`); 
         }
       }
     });

@@ -36,6 +36,7 @@ const findLinks = (file) => {
       }); 
     }
 
+    console.log("cuantas veces: ", urlArray)
     return(urlArray);
 }
 
@@ -76,7 +77,7 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
         linkInfoPromises.push(newObj);
         //return newObj;
       } else {
-        completeLinksArr.forEach((link)=>{
+        findLinks(data).forEach((link)=>{
           byLines.forEach((line, idx) => {
             if(line.includes(link.raw)){
               linkInfoPromises.push(getAxiosPromise(line, idx, link.url, filePath, option));

@@ -36,6 +36,7 @@ const findLinks = (file) => {
       }); 
     }
 
+    console.log("cuantas veces: ", urlArray)
     return(urlArray);
 }
 
