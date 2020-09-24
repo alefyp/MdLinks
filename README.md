@@ -1,15 +1,7 @@
 ## Markdown Links
-#### By Alefy
 
+Link recognition module to identify broken/working links in markdown files. By default understands: http(s)://... , ftp://..., mailto:... & //... links « "fuzzy" links and emails (google.com, foo@bar.com).
 
-Link recognition module to identify broken/working links in markdown files.
-
-[![npm dependents](https://badgen.net/npm/dependents/chalk)](https://www.npmjs.com/package/chalk?activeTab=dependents) [![Downloads](https://badgen.net/npm/dt/chalk)](https://www.npmjs.com/package/chalk) 
-
-By default understands:
-
-http(s)://... , ftp://..., mailto:... & //... links
-"fuzzy" links and emails (google.com, foo@bar.com).
 
 ## Index
 
@@ -81,7 +73,7 @@ md-links <path> [options]
 
 #### Default 
 
-Just try md-links <path>
+Just try md-links *path*
 
 ```console
 $ md-links alefy.md
@@ -92,14 +84,23 @@ alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/cha
 
 ### Validate
 
-md-links <path> --validate
+md-links *path* --validate
 
-log with file line text check status, each match describe as follows:
-file: file name
-line: line where the link was found in the specified file
-text: text reference as (example)[link] will return text, if the link is not reference in that way, it will returns the entire line content as text description
-check: 'ok' for working links and 'broken' for... yes, broken links.
-status: status code from response, it can be undefined for unexistant links 
+log with:
+file | line | text |
+* file: file name
+* line: line where the link was found in the specified file
+* text: text reference as (example)[link] will return text, if the link is not reference in that way, it will returns the entire line content as text description
+
+```console
+alefy.md 1 http://google.com google.com
+alefy.md 2 http://www.alefy.com www.alefy.com
+alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk
+```
+log with:
+file | line | text | check | status | 
+* check: 'ok' for working links and 'broken' for... yes, broken links.
+* status: status code from response, it can be undefined for unexistant links 
 
 ```console
 $ md-links alefy.md --validate
@@ -107,12 +108,27 @@ $ md-links alefy.md --validate
  alefy.md http://www.alefy.com www.alefy.com broken undefined
  alefy.md https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk ok 200
 ```
-
+log with:
+total | unique | 
+* link: total links found
+* unique: unique links found 
 
 ```console
 $ md-links alefy.md --stats
 total: 3
 unique: 3
+```
+log with:
+total | unique | broken | 
+* link: total links found
+* unique: unique links found 
+* broken: total broken links found
+
+```console
+$ md-links alefy.md --stats --validate
+total: 3
+unique: 3
+broken: 1
 ```
 
 both flag options work with directories as well:
