@@ -9,7 +9,11 @@
 * [Usage](##Usage)
   * [Javascript API](###JavascriptAPI)
   * [CLI](###CLI)
-    * []()
+    * [Default](####Default)
+    * [Validate](####Validate)
+    * [Stats](####Stats)
+    * [Directories](####Directories?)
+* [Issues](##Issues)
 
 
 ## Install
@@ -145,5 +149,6 @@ total: 12
 unique: 10
 broken: 2
 ```
+## Issues
 
-
+Working on it.
