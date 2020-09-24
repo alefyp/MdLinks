@@ -74,11 +74,11 @@ mdLinks("./some/dir")
 ```
 ### CLI
 
-md-links <path> [options]
+`md-links <path> [options]`
 
 #### Default 
 
-md-links *path* 
+`md-links <path>`
 
 log with:
 file | line | text |
@@ -95,7 +95,7 @@ alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/cha
 
 #### Validate
 
-md-links *path* --validate
+`md-links <path> --validate`
 
 log with:
 file | line | text | check | status | 
@@ -111,7 +111,7 @@ $ md-links alefy.md --validate
 
  #### Stats
 
- md-links *path* --stats
+ `md-links <path> --stats`
 
 log with:
 total | unique | 
@@ -126,6 +126,8 @@ unique: 3
 ```
 
 #### Validate ft. stats
+
+`md-links alefy.md --stats --validate`
 
 log with:
 total | unique | broken | 
