@@ -29,13 +29,11 @@ const readFile = (filePath) => {
 const findLinks = (file) => {
     const fileContent = linkify.match(file); 
     const urlArray = [];
-    
     if(fileContent !== null){
       fileContent.forEach((e)  => {
         urlArray.push({url: e.url, raw: e.raw});
       }); 
     }
-
     return(urlArray);
 }
 
@@ -69,14 +67,13 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
 
       const linkInfoPromises = []; //links promises
 
-      const completeLinksArr = findLinks(data);
-
-      if(!(Array.isArray(completeLinksArr) && completeLinksArr.length)){
+      if(!(Array.isArray(findLinks(data)) && findLinks(data).length)){
         const newObj = {filePath, check: "No links detected in this file"}; //documentarlo
         linkInfoPromises.push(newObj);
         //return newObj;
-      } else {
-        completeLinksArr.forEach((link)=>{
+      } else{
+        findLinks(data).forEach((link)=>{
+          console.log(link);
           byLines.forEach((line, idx) => {
             if(line.includes(link.raw)){
               linkInfoPromises.push(getAxiosPromise(line, idx, link.url, filePath, option));
@@ -94,6 +91,7 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
 
     const text = line.split('[').pop().split(']')[0]; //text
     const newObj = {link: link, line: idx+1, text, file: filePath } //Más uno porque la linea empeiza en cero por el array
+    console.log(newObj);
     if(!option.validate){
       return Promise.resolve(newObj);
     } 
@@ -135,6 +133,7 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
           reject(new Error(err.message))
         }else{
           if(fs.lstatSync(filename).isFile()){
+            //console.log("Archivo solo", mdLinksDefault(filename, option))
             resolve(mdLinksDefault(filename, option).then((e) => Promise.all(e)));
           }
           else if(fs.lstatSync(filename).isDirectory() ){

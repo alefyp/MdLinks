@@ -7,7 +7,7 @@ const path = require('path'); //lo uso para mostrar el archivo solito y que se v
 
 
 const yargs = require("yargs");
-
+const { link } = require("fs");
 
 const userEnt = argv._;
 

@@ -1,4 +1,4 @@
-const mdLinks = require('md-links');
+const mdLinks = require('./index');
 
 
 const filepathmd = '../../FolderDemo/disney.md';
