@@ -81,7 +81,8 @@ mdLinks("./some/dir")
 `md-links <path>`
 
 log with:
-file | line | text |
+> |file | line | text |
+---------------------
 * file: file name
 * line: line where the link was found in the specified file
 * text: text reference as (example)[link] will return text, if the link is not reference in that way, it will returns the entire line content as text description
@@ -98,15 +99,16 @@ alefy.md 3 https://www.npmjs.com/package/chalk https://www.npmjs.com/package/cha
 `md-links <path> --validate`
 
 log with:
-file | line | text | check | status | 
+> | file | line | text | check | status | 
+------------------------------------
 * check: 'ok' for working links and 'broken' for... yes, broken links.
 * status: status code from response, it can be undefined for unexistant links 
 
 ```console
 $ md-links alefy.md --validate
- alefy.md http://google.com google.com ok 200
- alefy.md http://www.alefy.com www.alefy.com broken undefined
- alefy.md https://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk ok 200
+ alefy.md 1 http://google.com google.com ok 200
+ alefy.md 2 http://www.alefy.com www.alefy.com broken undefined
+ alefy.md 3 ttps://www.npmjs.com/package/chalk https://www.npmjs.com/package/chalk ok 200
  ```
 
  #### Stats
@@ -114,7 +116,7 @@ $ md-links alefy.md --validate
  `md-links <path> --stats`
 
 log with:
-total | unique | 
+> | total | unique | 
 * link: total links found
 * unique: unique links found 
 
@@ -130,7 +132,7 @@ unique: 3
 `md-links alefy.md --stats --validate`
 
 log with:
-total | unique | broken | 
+> | total | unique | broken | 
 * link: total links found
 * unique: unique links found 
 * broken: total broken links found
@@ -153,4 +155,6 @@ broken: 2
 ```
 ## Issues
 
-Working on it.
+Typos detected: Working on it :p
+
+
