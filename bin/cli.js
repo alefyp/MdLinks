@@ -108,7 +108,7 @@ if( options.stats === undefined){ //Yo aquí había puesto dos condiciones :((((
     });
   })
     .catch((e) =>{
-      const errorText = chalk.yellow('did you try md-links <path> [options] correctly?');
+      const errorText = chalk.yellow('did you tried md-links <path> [options] correctly?');
       console.log(`${errorText} ${e.message}`);
     });
 }
