@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const linkify = require('linkify-it')();
 const axios = require('axios');
+const _ = require('lodash'); //no one will ever know the things i've done xD
 
 linkify
   .add('git:', 'http:')           // Add `git:` protocol as "alias"
@@ -25,6 +26,22 @@ const readFile = (filePath) => {
 };
 
 
+//temp fix xddd
+const stats = (urlsArray) => {
+  var i,
+  len = urlsArray.length,
+  out = [],
+  obj = {};
+
+  for (i = 0; i < len; i++) {
+    obj[urlsArray[i]] = 0;
+  }
+  for (i in obj) {
+    out.push(i);
+  }
+return out; // out.lenght 
+}
+
 //entra un archivo en texto platno utf-8
 const findLinks = (file) => {
     const fileContent = linkify.match(file); 
@@ -35,7 +52,6 @@ const findLinks = (file) => {
         urlArray.push({url: e.url, raw: e.raw});
       }); 
     }
-
     return(urlArray);
 }
 
@@ -68,6 +84,7 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
       const byLines = data.split(/\r?\n/);
 
       const linkInfoPromises = []; //links promises
+      const tempArr = [];
 
       const completeLinksArr = findLinks(data);
 
@@ -76,14 +93,28 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
         linkInfoPromises.push(newObj);
         //return newObj;
       } else {
-        completeLinksArr.forEach((link)=>{
-          byLines.forEach((line, idx) => {
+        byLines.forEach((line, idx)=>{
+          
+          completeLinksArr.forEach((link) => {
+            
             if(line.includes(link.raw)){
-              linkInfoPromises.push(getAxiosPromise(line, idx, link.url, filePath, option));
+              tempArr.push({line, idx, link: link.url, filePath, option});
+              
+              //linkInfoPromises.push(getAxiosPromise(line, idx, link.url, filePath, option));
             }
-          });        
+          });
+          
+          
         });
+        
       }
+
+      const unique = _.uniqBy(tempArr, 'line' && 'link' && 'idx'); //secrets xD
+
+      unique.forEach((obj) =>{
+        linkInfoPromises.push(getAxiosPromise(obj.line, obj.idx, obj.link, obj.filePath, option));
+      })
+
       return linkInfoPromises;
     }).catch((err) =>{
       return Promise.reject(err); //err read file
@@ -117,9 +148,6 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
                 return(newObj);
             });
 }
-
-
-
 
   module.exports = mdlinks = (filename, option = {validate: false}) => {
 
