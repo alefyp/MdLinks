@@ -135,7 +135,6 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
                 const ok = 'ok';
                 newObj.status = status;
                 newObj.check = ok;
-
                 return(newObj);
 
               }, (err) => {

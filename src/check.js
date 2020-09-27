@@ -19,12 +19,12 @@ const notvalidfile = '../../Md links.png'
 //   })
 //   .catch(console.error);
   
-// mdLinks(filepathmd, { validate: true })
-//   .then(links => {
-//     console.log(links);
-//     // => [{ href, text, file, status, ok }]
-//   })
-//   .catch(console.error);
+mdLinks(filepathmd, { validate: true })
+  .then(links => {
+    console.log(links);
+    // => [{ href, text, file, status, ok }]
+  })
+  .catch(console.error);
 
 // mdLinks(dirpath)
 //   .then(links => {
@@ -33,9 +33,9 @@ const notvalidfile = '../../Md links.png'
 //   })
 //   .catch(console.error);
 
-  mdLinks(dirpath, {validate: true})
-  .then(links => {
-    console.log(links);
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
+  // mdLinks(dirpath, {validate: true})
+  // .then(links => {
+  //   console.log(links);
+  //   // => [{ href, text, file }]
+  // })
+  // .catch(console.error);

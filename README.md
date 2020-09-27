@@ -59,7 +59,7 @@ mdLinks("./some/example.md", { validate: true })
 
 mdLinks("./some/dir")
   .then(links => { console.log(links);
-                //still just one array as result with same keys per object
+                //still just one array as result with same keys per object even with multiples files
                 // [
                 //   {
                 //   link: link,

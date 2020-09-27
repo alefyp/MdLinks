@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,8 +28,8 @@
     "url": "https://github.com/Alefyyyy/bog001-md-links/issues"
   },
   "homepage": "https://github.com/Alefyyyy/bog001-md-links#readme",
-  "publishConfig": { 
-    "registry": "https://npm.pkg.github.com/" 
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
     "axios": "^0.20.0",

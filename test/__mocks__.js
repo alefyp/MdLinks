@@ -19,7 +19,7 @@ const fileResult = [
     text: 'Disney Latino',
     file: 'C:\\Users\\Alefy\\Documents\\Laboratoria\\Proyecto4\\FolderDemo\\disney.md'
   }
-]
+];
 
 //dir
 
@@ -123,7 +123,7 @@ const fileValidate = [
     status: 200,
     check: 'ok'
   }
-]
+];
 
 //dir validate
 
@@ -219,4 +219,11 @@ const dirValidate = [
     status: 200,
     check: 'ok'
   }
-]
+];
+
+module.exports = {
+  fileResult,
+  fileValidate,
+  dirResult,
+  dirValidate
+}
