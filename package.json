@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "@Alefyyyy/md-links",
   "version": "0.1.0",
   "main": "./src/index.js",
   "description": "npm module to identify broken/working links in markdown files",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alefyyyy/bog001-md-links.git"
+    "url": "git@github.com:Alefyyyy/bog001-md-links.git"
   },
   "keywords": [
     "nodejs",

@@ -13,7 +13,6 @@ const dirpath = '../FolderDemo'
 const notvalidfile = '../../invalidapath.md'
 const notvalidfilepng = '../Md Links.png'
 
-console.log(dirpath);
 describe('mdLinks files', () => {
 
 
@@ -31,12 +30,8 @@ describe('mdLinks files', () => {
     return expect(mdLinks(dirpath, { validate: true })).resolves.toMatchObject(mockObj.dirValidate);
   });
 
-  // test('It should return an array of objects /folder', () => {
-  //   return expect(mdLinks(dirpath)).resolves.toMatchObject(mockObj.dirResult);
-  // });
-
-  test('fails with no such file or directory like', () => {
-    return expect(mdLinks(notvalidfile)).rejects.toStrictEqual(new Error(`ENOENT: no such file or directory, open 'C:\Users\Alefy\Documents\Laboratoria\invalidapath.md'`));
+  test('fails with no such file or directory error', () => {
+    return expect(mdLinks(notvalidfile)).rejects.toStrictEqual(new Error(`ENOENT: no such file or directory, open 'C:\\Users\\Alefy\\Documents\\Laboratoria\\invalidapath.md'`));
   });
 
   test('fails with not supported file error', () => {
