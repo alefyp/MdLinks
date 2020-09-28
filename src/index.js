@@ -141,11 +141,11 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
                 if(err.response != undefined){
                   const status = err.response.status;
                   newObj.status = status;
-                }
+                } //could be this but it works in checkjs and clijs 
                 const ok = 'broken'; 
                 newObj.check = ok;
                 return(newObj);
-            });
+            }).catch();
 }
 
   module.exports = mdlinks = (filename, option = {validate: false}) => {
