@@ -5,12 +5,12 @@ const filepathmd = '../../FolderDemo/disney.md';
 const dirpath = '../../FolderDemo'
 const notvalidfile = '../../Md links.png'
 
-// mdLinks(notvalidfile)
-// .then(links => {
-//   console.log(links);
-//   //=> [{ href, text, file}]
-// })
-// .catch(console.error); //err
+mdLinks(notvalidfile)
+.then(links => {
+  console.log(links);
+  //=> [{ href, text, file}]
+})
+.catch(e => console.log(e.message)); //err
 
 // mdLinks(filepathmd)
 //   .then(links => {
@@ -33,9 +33,9 @@ const notvalidfile = '../../Md links.png'
 //   })
 //   .catch(console.error);
 
-  mdLinks(dirpath, {validate: true})
-  .then(links => {
-    console.log(links);
-    // => [{ href, text, file }]
-  })
-  .catch(console.error);
+  // mdLinks(dirpath, {validate: true})
+  // .then(links => {
+  //   console.log(links);
+  //   // => [{ href, text, file }]
+  // })
+  // .catch(console.error);

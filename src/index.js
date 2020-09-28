@@ -26,22 +26,6 @@ const readFile = (filePath) => {
 };
 
 
-//temp fix xddd
-const stats = (urlsArray) => {
-  var i,
-  len = urlsArray.length,
-  out = [],
-  obj = {};
-
-  for (i = 0; i < len; i++) {
-    obj[urlsArray[i]] = 0;
-  }
-  for (i in obj) {
-    out.push(i);
-  }
-return out; // out.lenght 
-}
-
 //entra un archivo en texto platno utf-8
 const findLinks = (file) => {
     const fileContent = linkify.match(file); 

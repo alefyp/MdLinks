@@ -94,7 +94,7 @@ const dirResult = [
     text: 'Disney Latino',
     file: 'C:\\Users\\Alefy\\Documents\\Laboratoria\\Proyecto4\\FolderDemo\\Disney.md'
   }
-]
+];
 
 //file validate
 
@@ -222,8 +222,9 @@ const dirValidate = [
 ];
 
 module.exports = {
+  dirValidate,
   fileResult,
   fileValidate,
-  dirResult,
-  dirValidate
+  dirResult
+  
 }
