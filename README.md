@@ -54,6 +54,7 @@ mdLinks("./some/example.md", { validate: true })
                 //   check: ok/broken according to status.  
                 //   }
                 // ]
+
   })
   .catch(console.error);
 
@@ -72,6 +73,10 @@ mdLinks("./some/dir")
   })
   .catch(console.error);
 ```
+
+For markdown files without links you will receive the followin object:
+
+
 ### CLI
 
 `md-links <path> [options]`
