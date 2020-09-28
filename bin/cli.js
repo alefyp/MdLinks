@@ -100,7 +100,7 @@ if( options.stats === undefined){ //Yo aquí había puesto dos condiciones :((((
         let checkText = "owo";
         if(options.validate){     
           element.check == 'broken' ? checkText = chalk.red(element.check) : checkText = chalk.green(element.check);
-          console.log(` ${folderP} ${linkText} ${trunkText} ${checkText} ${element.status}`); 
+          console.log(` ${folderP} ${lineNum} ${linkText} ${trunkText} ${checkText} ${element.status}`); 
         }else{
           console.log(` ${folderP} ${lineNum} ${linkText} ${trunkText}`); 
         }
@@ -108,7 +108,7 @@ if( options.stats === undefined){ //Yo aquí había puesto dos condiciones :((((
     });
   })
     .catch((e) =>{
-      const errorText = chalk.yellow('did you try md-links <path> [options] correctly?');
+      const errorText = chalk.yellow('did you tried md-links <path> [options] correctly?');
       console.log(`${errorText} ${e.message}`);
     });
 }

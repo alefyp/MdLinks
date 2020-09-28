@@ -26,22 +26,6 @@ const readFile = (filePath) => {
 };
 
 
-//temp fix xddd
-const stats = (urlsArray) => {
-  var i,
-  len = urlsArray.length,
-  out = [],
-  obj = {};
-
-  for (i = 0; i < len; i++) {
-    obj[urlsArray[i]] = 0;
-  }
-  for (i in obj) {
-    out.push(i);
-  }
-return out; // out.lenght 
-}
-
 //entra un archivo en texto platno utf-8
 const findLinks = (file) => {
     const fileContent = linkify.match(file); 
@@ -135,18 +119,17 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
                 const ok = 'ok';
                 newObj.status = status;
                 newObj.check = ok;
-
                 return(newObj);
 
               }, (err) => {
                 if(err.response != undefined){
                   const status = err.response.status;
                   newObj.status = status;
-                }
+                } //could be this but it works in checkjs and clijs 
                 const ok = 'broken'; 
                 newObj.check = ok;
                 return(newObj);
-            });
+            }).catch();
 }
 
   module.exports = mdlinks = (filename, option = {validate: false}) => {
