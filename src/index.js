@@ -2,7 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const linkify = require('linkify-it')();
 const axios = require('axios');
-const { resolve } = require('url');
+const _ = require('lodash'); //no one will ever know the things i've done xD
+
+linkify
+  .add('git:', 'http:')           // Add `git:` protocol as "alias"
+  .add('ftp:', null)              // Disable `ftp:` protocol
+  .set({ fuzzyIP: true, fuzzyLink: true });        // Enable IPs in fuzzy links (without schema)
 
 const arrFilepaths = [];
 
@@ -25,9 +30,10 @@ const readFile = (filePath) => {
 const findLinks = (file) => {
     const fileContent = linkify.match(file); 
     const urlArray = [];
+    
     if(fileContent !== null){
       fileContent.forEach((e)  => {
-        urlArray.push(e.url);
+        urlArray.push({url: e.url, raw: e.raw});
       }); 
     }
     return(urlArray);
@@ -62,20 +68,37 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
       const byLines = data.split(/\r?\n/);
 
       const linkInfoPromises = []; //links promises
+      const tempArr = [];
 
-      if(!(Array.isArray(findLinks(data)) && findLinks(data).length)){
+      const completeLinksArr = findLinks(data);
+
+      if(!(Array.isArray(completeLinksArr) && completeLinksArr.length)){
         const newObj = {filePath, check: "No links detected in this file"}; //documentarlo
         linkInfoPromises.push(newObj);
         //return newObj;
-      } else{
-        findLinks(data).forEach((link)=>{
-          byLines.forEach((line, idx) => {
-            if(line.includes(link)){
-              linkInfoPromises.push(getAxiosPromise(line, idx, link, filePath, option));
+      } else {
+        byLines.forEach((line, idx)=>{
+          
+          completeLinksArr.forEach((link) => {
+            
+            if(line.includes(link.raw)){
+              tempArr.push({line, idx, link: link.url, filePath, option});
+              
+              //linkInfoPromises.push(getAxiosPromise(line, idx, link.url, filePath, option));
             }
-          });        
+          });
+          
+          
         });
+        
       }
+
+      const unique = _.uniqBy(tempArr, 'line' && 'link' && 'idx'); //secrets xD
+
+      unique.forEach((obj) =>{
+        linkInfoPromises.push(getAxiosPromise(obj.line, obj.idx, obj.link, obj.filePath, option));
+      })
+
       return linkInfoPromises;
     }).catch((err) =>{
       return Promise.reject(err); //err read file
@@ -85,8 +108,7 @@ const mdLinksDefault = (filePath, option = { validate: false } ) => {
 const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación objeto
 
     const text = line.split('[').pop().split(']')[0]; //text
-    const newObj = {link, line: idx+1, text, file: filePath } //Más uno porque la linea empeiza en cero por el array
-
+    const newObj = {link: link, line: idx+1, text, file: filePath } //Más uno porque la linea empeiza en cero por el array
     if(!option.validate){
       return Promise.resolve(newObj);
     } 
@@ -97,43 +119,33 @@ const getAxiosPromise = (line, idx, link, filePath, option) =>{ //creación obje
                 const ok = 'ok';
                 newObj.status = status;
                 newObj.check = ok;
-
                 return(newObj);
 
               }, (err) => {
                 if(err.response != undefined){
                   const status = err.response.status;
                   newObj.status = status;
-                }
+                } //could be this but it works in checkjs and clijs 
                 const ok = 'broken'; 
                 newObj.check = ok;
                 return(newObj);
-            });
+            }).catch();
 }
-
-
-
 
   module.exports = mdlinks = (filename, option = {validate: false}) => {
 
-    
-
-
     const promiseLaUltimaLoJuro = new Promise((resolve, reject) => {
-      
-
       filename = path.resolve(filename);
       
       
       fs.open(filename, 'r', (err, fd) => {
         if (err) {
           if (err.code === 'ENOENT') {
-            console.error('File does not exist');
+            //console.error('File does not exist');
           }
           reject(new Error(err.message))
         }else{
           if(fs.lstatSync(filename).isFile()){
-            //console.log("Archivo solo", mdLinksDefault(filename, option))
             resolve(mdLinksDefault(filename, option).then((e) => Promise.all(e)));
           }
           else if(fs.lstatSync(filename).isDirectory() ){
